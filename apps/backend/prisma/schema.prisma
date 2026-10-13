@@ -1,0 +1,17 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Initial health/connectivity verification model (DB-001 foundation)
+model DatabaseHealthCheck {
+  id        String   @id @default(uuid())
+  status    String   @default("connected")
+  checkedAt DateTime @default(now()) @map("checked_at")
+
+  @@map("database_health_checks")
+}
